@@ -9,15 +9,14 @@ app.use(cors())
 // port
 const port = process.env.SERVER_PORT;
 
-// connection to db
-var connection = mysql.createConnection({
-    host: process.env.DBHOST,
-    user: process.env.DBUSER,
-    password: process.env.DBPASSWORD,
-    database: process.env.DBDATABASE
-});
+// Database
+const db = require('./config/database');
 
-connection.connect();
+// Test DB
+db.authenticate()
+    .then(() => console.log('Database connected...'))
+    .catch(err => console.log('Error: ' + err))
+
 
 // APIs
 app.get('/', (req, res) => {
@@ -27,7 +26,7 @@ app.get('/test', (req, res) => {
     res.send('test')
 })
 
-connection.end();
+// connection.end();
 
 // server
 app.listen(port, () => console.log(`Server Running at ${port}`))
