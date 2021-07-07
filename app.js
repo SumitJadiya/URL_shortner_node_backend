@@ -1,10 +1,14 @@
 require("dotenv").config();
 
-const mysql = require("mysql")
 const express = require("express")
 const cors = require('cors')
 const app = express()
+
 app.use(cors())
+
+// route
+const urlRoutes = require("./routes/url");
+console.log(urlRoutes)
 
 // port
 const port = process.env.SERVER_PORT;
@@ -19,12 +23,7 @@ db.authenticate()
 
 
 // APIs
-app.get('/', (req, res) => {
-    res.send('home')
-})
-app.get('/test', (req, res) => {
-    res.send('test')
-})
+app.use('/api', urlRoutes)
 
 // connection.end();
 
