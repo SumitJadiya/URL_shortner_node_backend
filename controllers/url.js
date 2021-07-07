@@ -3,7 +3,7 @@ const URL = require("../models/url")
 exports.encodeUrl = (req, res) => {
 
     let longUrl = req.params.longString
-    let encodedString = encodeShortUrl(longUrl)
+    let encodedString = encodeToShortUrl(longUrl)
 
     let url = new URL()
     url.longUrl = longUrl
@@ -15,11 +15,19 @@ exports.encodeUrl = (req, res) => {
 
 exports.decodeUrl = (req, res) => {
 
-    // code to decode the url
+    console.log("hkjsahdkjahdkjahkjdhak")
+    let shortUrl = req.params.shortString
+    console.log(shortUrl)
+    decodeToLongUrl(shortUrl).then(function (result) {
+        let decodedString = result.dataValues.longUrl
+        console.log("success", decodedString)
+        return res.status(200).json({ decodedString })
+    }).catch(function (error) {
+        throwError(res, error)
+    })
 }
 
-
-function encodeShortUrl(longUrl) {
+function encodeToShortUrl(longUrl) {
 
     const randomDigits = 'ABCDEFGHIJKLMNOPQRSTabcdefghijklmnopqrstuvwxyz0987654321';
     let len = randomDigits.length;
@@ -31,8 +39,8 @@ function encodeShortUrl(longUrl) {
     return result;
 }
 
-var decodeShortUrl = function (shortUrl) {
-    return map[shortUrl.split('com/')[1]];
+async function decodeToLongUrl(shortUrl) {
+    return await URL.findOne({ where: { shortUrl: shortUrl } })
 };
 
 const throwError = (res, message) => {
