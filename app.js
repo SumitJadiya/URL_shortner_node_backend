@@ -22,7 +22,7 @@ db.authenticate()
 
 
 // APIs
-app.use('/api', urlRoutes)
+app.use('/', urlRoutes)
 
 // connection.end();
 
