@@ -4,7 +4,8 @@ const db = require('../config/database');
 const URL = db.define('URL', {
     id: {
         primaryKey: true,
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false
     },
     longUrl: {
@@ -24,4 +25,5 @@ URL.sync().then(() => {
     console.log('table created');
 });
 */
+
 module.exports = URL;

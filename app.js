@@ -8,7 +8,6 @@ app.use(cors())
 
 // route
 const urlRoutes = require("./routes/url");
-console.log(urlRoutes)
 
 // port
 const port = process.env.SERVER_PORT;

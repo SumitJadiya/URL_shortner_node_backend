@@ -4,7 +4,10 @@ const db = require('../config/database');
 const URL = require('../models/url');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const { encodeUrl, decodeUrl } = require('../controllers/url')
 
-router.get('/test', (req, res) => res.send("Testpage"));
+router.post('/encode/:longString', encodeUrl);
+
+router.post('/decode/:shortString', decodeUrl);
 
 module.exports = router
