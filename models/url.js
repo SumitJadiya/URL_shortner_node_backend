@@ -1,23 +1,25 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+const { Sequelize } = require('sequelize');
+const db = require('../config/database');
 
-const URL = sequelize.define('URL', {
-
+const URL = db.define('URL', {
     id: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     longUrl: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     shortUrl: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
-    },
-
+    }
 }, {
-
+    timestamps: true
 });
 
-console.log(URL === sequelize.models.URL); // true
+URL.sync().then(() => {
+    console.log('table created');
+});
+
+module.exports = URL;
