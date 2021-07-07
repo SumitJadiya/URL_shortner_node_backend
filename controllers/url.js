@@ -2,7 +2,7 @@ const URL = require("../models/url")
 
 exports.encodeUrl = (req, res) => {
 
-    let longUrl = req.params.longString
+    let longUrl = req.body.longString
     let encodedString = encodeToShortUrl(longUrl)
 
     URL
@@ -12,6 +12,7 @@ exports.encodeUrl = (req, res) => {
         }).then(function (msg) {
             return res.status(200).json(msg)
         })
+
 }
 
 exports.decodeUrl = (req, res) => {

@@ -1,10 +1,15 @@
 require("dotenv").config();
+const Sequelize = require('sequelize');
 
-const express = require("express")
 const cors = require('cors')
+const express = require("express")
 const app = express()
 
 app.use(cors())
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
 
 // route
 const urlRoutes = require("./routes/url");
@@ -20,11 +25,8 @@ db.authenticate()
     .then(() => console.log('Database connected...'))
     .catch(err => console.log('Error: ' + err))
 
-
 // APIs
 app.use('/', urlRoutes)
-
-// connection.end();
 
 // server
 app.listen(port, () => console.log(`Server Running at ${port}`))
