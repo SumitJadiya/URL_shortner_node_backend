@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 module.exports = new Sequelize(process.env.DBDATABASE, process.env.DBUSER, process.env.DBPASSWORD, {
     host: process.env.DBHOST,
     dialect: 'mysql',
-    operatorsAliases: false,
+    operatorsAliases: 0,
 
     pool: {
         max: 10,

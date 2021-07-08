@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "test": "mocha 'test/**/*.js'"
   },
   "repository": {
     "type": "git",
@@ -17,13 +18,17 @@
   },
   "homepage": "https://github.com/SumitJadiya/URL_shortner_node_backend#readme",
   "dependencies": {
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
+    "request": "^2.88.2",
     "sequelize": "^6.6.5"
   },
   "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.0.2",
     "nodemon": "^2.0.9"
   }
 }

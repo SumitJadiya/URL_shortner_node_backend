@@ -26,6 +26,8 @@ db.authenticate()
     .catch(err => console.log('Error: ' + err))
 
 // APIs
+app.use('/dummy', (req, res) => res.send({ message: "Test is passed" }))
+
 app.use('/', urlRoutes)
 
 // server

@@ -2,6 +2,9 @@ const URL = require("../models/url")
 
 exports.encodeUrl = (req, res) => {
 
+    /*     if (!req.body.longString)
+            throwError(res, "Please Enter Correct String")
+     */
     let longUrl = req.body.longString
     let encodedString = encodeToShortUrl(longUrl)
 
