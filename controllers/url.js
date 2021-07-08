@@ -2,9 +2,11 @@ const URL = require("../models/url")
 
 exports.encodeUrl = (req, res) => {
 
-    /*     if (!req.body.longString)
+    /*     
+    if (!req.body.longString)
             throwError(res, "Please Enter Correct String")
      */
+
     let longUrl = req.body.longString
     let encodedString = encodeToShortUrl(longUrl)
 
@@ -37,7 +39,7 @@ function encodeToShortUrl(longUrl) {
 
     let result = '';
     for (let i = 0; i < 7; i++)
-        result += randomDigits[Math.floor(Math.random() * len)];
+        result += randomDigits[Math.floor(Math.random() * len)]; // generate short URL
 
     return result;
 }
