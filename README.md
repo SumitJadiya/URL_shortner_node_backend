@@ -16,7 +16,7 @@
 
 1. clone this app using command <i>git@github.com:SumitJadiya/URL_shortner_node_backend.git</i>.
 2. run "npm install" to install dependencies.
-3. Setup Mysql in local and then create a file .env in the main folder, this file will have the contents: <br/>
+3. Setup Mysql in local and then create a file .env in the main(same directory having readme) folder, this file will have the contents: <br/>
    - SERVER_PORT = <your_server_port>
    - DBHOST = '<your_mysql_db_host>'
    - DBUSER = '<your_mysql_db_user>'
