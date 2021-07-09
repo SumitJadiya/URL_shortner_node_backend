@@ -3,21 +3,32 @@ const URL = require("../models/url")
 // encodes the URL
 exports.encodeUrl = (req, res) => {
 
-    /*     
-    if (!req.body.longString)
-            throwError(res, "Please Enter Correct String")
-     */
-
     let longUrl = req.body.longString
     let encodedString = encodeToShortUrl(longUrl)
 
-    URL
-        .findOrCreate({
-            where: { longUrl: longUrl },
-            defaults: { shortUrl: encodedString, longUrl: longUrl }
-        }).then(function (msg) {
-            return res.status(200).json(msg)
-        })
+    if (!longUrl)
+        throwError(res, "Please Enter Correct String")
+    else {
+        URL
+            .findOrCreate({
+                where: { longUrl: longUrl },
+                defaults: { shortUrl: encodedString, longUrl: longUrl }
+            }).then((msg) => res.status(200).json(msg))
+    }
+}
+
+// check for custom string
+exports.encodeUrlWithCustomString = (req, res) => {
+
+    let longUrl = req.body.longString
+    let shortUrl = req.body.shortString
+
+    if (!shortUrl)
+        this.encodeUrl(req, res)
+    else if (!longUrl)
+        throwError(res, "Please Enter Correct String")
+    else
+        findShortURL(shortUrl, longUrl, res)
 }
 
 // decodes the URL
@@ -25,12 +36,13 @@ exports.decodeUrl = (req, res) => {
 
     let shortUrl = req.params.shortString
 
-    findShortURL(shortUrl).then(function (result) {
-        let decodedString = result.dataValues.longUrl
-        return res.status(200).json({ decodedString })
-    }).catch(function (error) {
-        throwError(res, error)
-    })
+    URL.findOne({ where: { shortUrl: shortUrl } })
+        .then(function (result) {
+            let decodedString = result.dataValues.longUrl
+            return res.status(200).json({ decodedString })
+        }).catch(function (error) {
+            throwError(res, error)
+        })
 }
 
 // algorithm to encode URL -> 64^9 unique strings
@@ -46,10 +58,21 @@ function encodeToShortUrl(longUrl) {
     return result;
 }
 
-async function findShortURL(shortUrl) {
-    return await URL.findOne({ where: { shortUrl: shortUrl } })
+// check if short url available
+async function findShortURL(shortUrl, longUrl, res) {
+    const isPresent = await URL.findOne({ where: { shortUrl: shortUrl } })
+
+    if (isPresent) return res.status(400).json({ "message": "Short String Already Present!" });
+    else {
+        URL
+            .findOrCreate({
+                where: { longUrl: longUrl, shortUrl: shortUrl },
+                defaults: { shortUrl: shortUrl, longUrl: longUrl }
+            }).then((msg) => res.status(200).json(msg))
+    }
 };
 
+// custom exception method
 const throwError = (res, message) => {
     return res.status(400).json({
         error: message
