@@ -1,5 +1,6 @@
 const URL = require("../models/url")
 
+// encodes the URL
 exports.encodeUrl = (req, res) => {
 
     /*     
@@ -17,9 +18,9 @@ exports.encodeUrl = (req, res) => {
         }).then(function (msg) {
             return res.status(200).json(msg)
         })
-
 }
 
+// decodes the URL
 exports.decodeUrl = (req, res) => {
 
     let shortUrl = req.params.shortString
@@ -32,13 +33,14 @@ exports.decodeUrl = (req, res) => {
     })
 }
 
+// algorithm to encode URL -> 64^9 unique strings
 function encodeToShortUrl(longUrl) {
 
     const randomDigits = 'ABCDEFGHIJKLMNOPQRSTabcdefghijklmnopqrstuvwxyz0987654321';
     let len = randomDigits.length;
 
     let result = '';
-    for (let i = 0; i < 7; i++)
+    for (let i = 0; i < 9; i++)
         result += randomDigits[Math.floor(Math.random() * len)]; // generate short URL
 
     return result;
