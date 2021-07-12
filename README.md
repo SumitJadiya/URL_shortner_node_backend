@@ -38,3 +38,6 @@
 <p>The longString is encoded to a shortString by generating random characters from a string set. Here, I've used a String (which consists of all the characters, numbers) to generate the random characters. </p>
 <p>As soon as the string is encoded, the string is stored in database (MYSQL in this app)</p>
 <p>When User tries to encode a longString again and again, I'm checking if the URL is already present i'm returning the short URL as it is <b>without generating</b> new one.</p>
+
+### FrontEnd for this App
+https://github.com/SumitJadiya/URL_shortner_react_FE
